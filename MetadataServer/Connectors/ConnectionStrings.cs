@@ -1,9 +1,8 @@
 ﻿// Copyright CodeWareGames. All Rights Reserved.
 
-namespace MetadataServer.Connectors
+namespace MetadataServer.Connectors;
+
+public class ConnectionStrings
 {
-    public class ConnectionStrings
-    {
-        public string MySqlConnection { get; set; }
-    }
+	public string MySqlConnection { get; set; }
 }

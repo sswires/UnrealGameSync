@@ -1,23 +1,31 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 // Modifications Copyright CodeWareGames. All Rights Reserved.
+// Modifications Copyright Stephen Swires, QI Software Inc. All Rights Reserved.
 
-using Microsoft.AspNetCore.Hosting;
+using MetadataServer.Connectors;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace MetadataServer
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+// QI Software: Moved to use minimal hosting model
+var builder = WebApplication.CreateBuilder(args);
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+builder.Services.AddControllers().AddNewtonsoftJson();
+builder.Services.Configure<ConnectionStrings>(builder.Configuration.GetSection("ConnectionStrings"));
+builder.Services.AddSingleton<IMySqlConnector, MySqlConnector>();
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+	app.UseDeveloperExceptionPage();
 }
+
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+	endpoints.MapControllers();
+});
+
+app.Run();

@@ -7,28 +7,27 @@ using System.Threading.Tasks;
 using MetadataServer.Connectors;
 using MetadataServer.Models;
 
-namespace MetadataServer.Controllers
+namespace MetadataServer.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class BuildController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class BuildController : ControllerBase
-    {
-        private readonly IMySqlConnector _MySqlConnector;
-        public BuildController(IMySqlConnector MySqlConnector)
-        {
-            _MySqlConnector = MySqlConnector;
-        }
+	private readonly IMySqlConnector _MySqlConnector;
+	public BuildController(IMySqlConnector MySqlConnector)
+	{
+		_MySqlConnector = MySqlConnector;
+	}
 
-        [HttpGet]
-        public async Task<List<BuildData>> Get(string Project, long LastBuildId)
-        {
-            return await _MySqlConnector.GetBuilds(Project, LastBuildId);
-        }
+	[HttpGet]
+	public async Task<List<BuildData>> Get(string Project, long LastBuildId)
+	{
+		return await _MySqlConnector.GetBuilds(Project, LastBuildId);
+	}
 
-        [HttpPost]
-        public async Task<long> Post([FromBody]BuildData Build)
-        {
-            return await _MySqlConnector.PostBuild(Build);
-        }
-    }
+	[HttpPost]
+	public async Task<long> Post([FromBody]BuildData Build)
+	{
+		return await _MySqlConnector.PostBuild(Build);
+	}
 }

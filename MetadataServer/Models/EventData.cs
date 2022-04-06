@@ -1,33 +1,32 @@
 ﻿// Copyright Epic Games, Inc. All Rights Reserved.
 
-namespace MetadataServer.Models
+namespace MetadataServer.Models;
+
+public class EventData
 {
-    public class EventData
-    {
-		public enum EventType
-		{
-			Syncing,
+	public enum EventType
+	{
+		Syncing,
 
-			// Reviews
-			Compiles,
-			DoesNotCompile,
-			Good,
-			Bad,
-			Unknown,
+		// Reviews
+		Compiles,
+		DoesNotCompile,
+		Good,
+		Bad,
+		Unknown,
 
-			// Starred builds
-			Starred,
-			Unstarred,
+		// Starred builds
+		Starred,
+		Unstarred,
 
-			// Investigating events
-			Investigating,
-			Resolved,
-		}
-
-		public long Id;
-		public int Change;
-		public string UserName;
-		public EventType Type;
-		public string Project;
+		// Investigating events
+		Investigating,
+		Resolved,
 	}
+
+	public long Id;
+	public int Change;
+	public string UserName;
+	public EventType Type;
+	public string Project;
 }

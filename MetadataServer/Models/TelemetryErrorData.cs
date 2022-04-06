@@ -2,21 +2,20 @@
 
 using System;
 
-namespace MetadataServer.Models
+namespace MetadataServer.Models;
+
+public class TelemetryErrorData
 {
-    public class TelemetryErrorData
-    {
-		public enum TelemetryErrorType
-		{
-			Crash,
-		}
-		public int Id;
-		public TelemetryErrorType Type;
-		public string Text;
-		public string UserName;
-		public string Project;
-		public DateTime Timestamp;
-		public string Version;
-		public string IpAddress;
+	public enum TelemetryErrorType
+	{
+		Crash,
 	}
+	public int Id;
+	public TelemetryErrorType Type;
+	public string Text;
+	public string UserName;
+	public string Project;
+	public DateTime Timestamp;
+	public string Version;
+	public string IpAddress;
 }

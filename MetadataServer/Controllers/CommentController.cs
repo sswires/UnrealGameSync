@@ -7,28 +7,27 @@ using System.Threading.Tasks;
 using MetadataServer.Connectors;
 using MetadataServer.Models;
 
-namespace MetadataServer.Controllers
+namespace MetadataServer.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class CommentController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CommentController : ControllerBase
-    {
-        private readonly IMySqlConnector _MySqlConnector;
-        public CommentController(IMySqlConnector MySqlConnector)
-        {
-            _MySqlConnector = MySqlConnector;
-        }
+	private readonly IMySqlConnector _MySqlConnector;
+	public CommentController(IMySqlConnector MySqlConnector)
+	{
+		_MySqlConnector = MySqlConnector;
+	}
 
-        [HttpGet]
-        public async Task<List<CommentData>> Get(string Project, long LastCommentId)
-        {
-            return await _MySqlConnector.GetComments(Project, LastCommentId);
-        }
+	[HttpGet]
+	public async Task<List<CommentData>> Get(string Project, long LastCommentId)
+	{
+		return await _MySqlConnector.GetComments(Project, LastCommentId);
+	}
 
-        [HttpPost]
-        public async Task<long> Post([FromBody] CommentData Comment)
-        {
-            return await _MySqlConnector.PostComment(Comment);
-        }
-    }
+	[HttpPost]
+	public async Task<long> Post([FromBody] CommentData Comment)
+	{
+		return await _MySqlConnector.PostComment(Comment);
+	}
 }
